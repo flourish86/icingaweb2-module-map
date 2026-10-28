@@ -398,6 +398,21 @@
                     states: [{
                         icon: 'icon-dashboard', title: translation['btn-dashboard'], onClick: function (btn, map) {
                             const dashletUri = "map" + window.location.search;
+
+                            if (has_dashboards) {
+                                // The modal every "Add To Dashboard" entry opens, over the map being added
+                                const link = document.createElement('a');
+                                link.href = icinga.config.baseUrl + "/dashboards/dashboard/add-view?url="
+                                    + encodeURIComponent(encodeURIComponent(dashletUri));
+                                link.dataset.icingaModal = 'true';
+                                link.dataset.noIcingaAjax = 'true';
+                                map.getContainer().appendChild(link);
+                                link.click();
+                                link.remove();
+
+                                return;
+                            }
+
                             const uri = icinga.config.baseUrl + "/" + "dashboard/new-dashlet?url=" + encodeURIComponent(dashletUri);
 
                             window.open(uri, "_self")

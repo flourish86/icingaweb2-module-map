@@ -12,6 +12,9 @@ $this->provideHook('cube/Actions', 'IcingaDbCubeLinks');
 $this->provideHook('icingadb/IcingadbSupport');
 $this->provideHook('icingadb/HostActions');
 $this->provideHook('icingadb/ServiceActions');
+if ($this::exists('dashboards')) {
+    $this->provideHook('Dashboards/Dashlet', 'Dashboards/Map');
+}
 // CspHook to provide a custom content-security-policy for the module
 $this->provideHook('Csp');
 

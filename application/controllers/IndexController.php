@@ -109,6 +109,7 @@ class IndexController extends CompatController
                 // Dashlets are rendered with view=compact
                 'dashlet' => (bool) $this->view->compact,
                 'expand' => (bool) $this->params->get('expand'),
+                'has_dashboards' => Module::exists('dashboards') && $this->Auth()->hasPermission('module/dashboards'),
                 'isUsingIcingadb' => Module::exists('icingadb') && IcingadbSupport::useIcingaDbAsBackend(),
                 'service_status' => [
                     0 => [$this->translate('OK', 'icinga.state'), 'OK'],

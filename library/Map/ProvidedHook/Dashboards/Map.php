@@ -112,11 +112,13 @@ class Map extends DashletHook
             );
         }
 
-        foreach (['lat' => 'Latitude', 'long' => 'Longitude'] as $name => $label) {
+        // Read-only: set by panning the dashlet, and drawn as `lat: …, long: …` rather than as fields
+        foreach (['lat', 'long'] as $name) {
             $controls->addElement('input', $name, [
                 'type'        => 'number',
                 'step'        => 'any',
-                'label'       => $this->translateInDomain('map', $label),
+                'readonly'    => true,
+                'label'       => $this->translateInDomain('map', $name),
                 'placeholder' => (string) $config->get('map', "default_$name", $defaults["default_$name"]),
             ]);
         }

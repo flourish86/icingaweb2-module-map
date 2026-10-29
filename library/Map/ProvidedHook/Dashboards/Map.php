@@ -106,7 +106,10 @@ class Map extends DashletHook
 
         // Added in a later dashboards release than the hook itself; calling a missing method is a fatal there
         if (method_exists($controls, 'interact')) {
-            $controls->interact($this->translateInDomain('map', 'Position on Dashlet'));
+            $controls->interact(
+                $this->translateInDomain('map', 'Position on Dashlet'),
+                $this->translateInDomain('map', 'Drag the map to choose its center')
+            );
         }
 
         foreach (['lat' => 'Latitude', 'long' => 'Longitude'] as $name => $label) {

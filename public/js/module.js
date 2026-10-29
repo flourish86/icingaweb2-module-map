@@ -490,6 +490,26 @@
                 });
             }
 
+            if (dashlet) {
+                // Reports the view to a dashboard that lets its author position the dashlet by panning it
+                // (the dashboards module's interact control). Sent on every move; the dashboard decides
+                // whether it is listening.
+                const map = cache[id].map;
+
+                map.on('moveend', function () {
+                    const center = map.wrapLatLng(map.getCenter());
+
+                    map.getContainer().dispatchEvent(new CustomEvent('dashboards-settings', {
+                        bubbles: true,
+                        detail: {
+                            lat: center.lat.toFixed(6),
+                            long: center.lng.toFixed(6),
+                            zoom: String(map.getZoom())
+                        }
+                    }));
+                });
+            }
+
             cache[id].markers.addTo(cache[id].map);
 
             cache[id].map.spin(true);

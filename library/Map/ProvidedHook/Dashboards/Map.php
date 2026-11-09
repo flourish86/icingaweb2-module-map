@@ -56,6 +56,11 @@ class Map extends DashletHook
         return $this->translateInDomain('map', 'Hosts and services with a location on a map.');
     }
 
+    public function getModuleLabel(): ?string
+    {
+        return $this->translateInDomain('map', 'Map');
+    }
+
     public function configure(DashletControls $controls): void
     {
         $config = ModuleConfig::getConfig();

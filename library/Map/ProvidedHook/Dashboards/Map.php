@@ -113,7 +113,7 @@ class Map extends DashletHook
         if (method_exists($controls, 'interact')) {
             $controls->interact(
                 $this->translateInDomain('map', 'Position on Dashlet'),
-                $this->translateInDomain('map', 'Drag the map to choose its center')
+                $this->translateInDomain('map', 'Drag the map to choose its center, zoom to set its scale')
             );
         }
 

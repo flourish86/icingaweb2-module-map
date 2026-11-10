@@ -124,6 +124,7 @@ class IndexController extends CompatController
                     'btn-dashboard' => $this->translate('Add to dashboard'),
                     'btn-fullscreen' => $this->translate('Fullscreen'),
                     'btn-default' => $this->translate('Show default view'),
+                    'btn-reset-view' => $this->translate('Reset View'),
                     'btn-locate' => $this->translate('Show current location'),
                     'host-down' => $this->translate('Host is down')
                 ],

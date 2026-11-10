@@ -496,8 +496,41 @@
                 // whether it is listening.
                 const map = cache[id].map;
 
+                // Not showDefaultView(): it reads globals the last map rendered has overwritten
+                const home = {center: map.wrapLatLng(map.getCenter()), zoom: map.getZoom()};
+
+                // easyButton takes markup for an icon; built as elements so the label is text, not HTML
+                const face = document.createElement('span');
+                const glyph = document.createElement('span');
+                const label = document.createElement('span');
+
+                glyph.className = 'icon-cw';
+                label.className = 'map-reset-label';
+                label.textContent = translation['btn-reset-view'];
+                face.append(glyph, label);
+
+                const reset = L.easyButton({
+                    position: 'bottomleft',
+                    states: [{
+                        icon: face.innerHTML,
+                        title: translation['btn-reset-view'],
+                        onClick: function () {
+                            map.setView(home.center, home.zoom);
+                        }
+                    }]
+                }).addTo(map);
+
+                reset.getContainer().classList.add('map-reset-view');
+                reset.getContainer().hidden = true;
+
                 map.on('moveend', function () {
                     const center = map.wrapLatLng(map.getCenter());
+
+                    // Editing is server-rendered, so only positioning mode moves the map there; no reset then.
+                    // Under a pixel is no change, so a resize does not keep the button up.
+                    reset.getContainer().hidden = map.getContainer().closest('.dashboards-dashlet-grid-editable') !== null
+                        || (map.getZoom() === home.zoom
+                            && map.project(center).distanceTo(map.project(home.center)) < 1);
 
                     map.getContainer().dispatchEvent(new CustomEvent('dashboards-settings', {
                         bubbles: true,
